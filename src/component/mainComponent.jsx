@@ -13,7 +13,7 @@ const mainComponent = () => {
         <Route exact path="/account/signin" component={SigninContainer} />
         <Route exact path="/users" component={UserContainer} />
         <Route exact path="/" component={HomeComponent} />
-        <Redirect to="/" />
+        <Redirect to="/account/signin" />
       </Switch>
     </div>
   );
