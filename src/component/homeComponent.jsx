@@ -1,11 +1,9 @@
-import { Fragment } from "react";
+import React from "react";
 
-const HomeComponent = () => {
+export default function HomeComponent() {
   return (
-    <Fragment>
-      <h1>this is Home component</h1>
-    </Fragment>
+    <div className="text-center">
+      <h2>This is Home Component</h2>
+    </div>
   );
-};
-
-export default HomeComponent;
+}

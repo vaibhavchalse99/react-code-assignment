@@ -1,8 +1,9 @@
-import { Fragment, useState, useContext } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
 import authContext from "./authContext";
+import { Form, FormGroup, Input, Label, Button, Row } from "reactstrap";
 
 const SigninContainer = () => {
   const history = useHistory();
@@ -34,28 +35,41 @@ const SigninContainer = () => {
   };
 
   return (
-    <Fragment>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <p>Email</p>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
+    <div>
+      <Row className={"justify-content-center"}>
+        <h2>Login Page</h2>
+      </Row>
+      <Row className={"d-flex justify-content-center"}>
+        <div
+          style={{
+            position: "relative",
+            width: "50%",
+          }}
+        >
+          <Form onSubmit={handleSubmit}>
+            <FormGroup>
+              <Label>Email</Label>
+              <Input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label>Password</Label>
+              <Input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </FormGroup>
+            <div className="text-center">
+              <Button color="primary">Submit</Button>
+            </div>
+          </Form>
         </div>
-        <div>
-          <p>Password</p>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-
-        <button type="submit">Login</button>
-      </form>
-    </Fragment>
+      </Row>
+    </div>
   );
 };
 

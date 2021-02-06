@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container } from "reactstrap";
+import { Container, Nav, NavItem, NavLink, Button } from "reactstrap";
 import { useHistory } from "react-router-dom";
 
 import MainComponent from "../component/mainComponent";
@@ -17,18 +17,17 @@ function MainContainer() {
   };
   const renderLoginButton = () => {
     if (authenticated) {
-      return <button onClick={setState}>Logout</button>;
+      return <Button onClick={setState}>Logout</Button>;
     } else {
-      return <button onClick={handleClick}>Login</button>;
+      return <Button onClick={handleClick}>Login</Button>;
     }
   };
   return (
     <Container className="themed-container">
       <authContext.Provider value={{ authenticated, setAuthenticated }}>
-        <div style={{ font: 50 }}>
-          user is {`${authenticated ? "" : "not"} authenticated`}{" "}
-        </div>
-        {renderLoginButton()}
+        <Nav className="mt-5">
+          <NavItem className="h3">{renderLoginButton()}</NavItem>
+        </Nav>
         <MainComponent />
       </authContext.Provider>
     </Container>

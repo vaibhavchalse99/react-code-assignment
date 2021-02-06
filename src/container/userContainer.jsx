@@ -4,6 +4,7 @@ import axios from "axios";
 
 import authContext from "../container/authContext";
 import UserComponent from "../component/userComponent";
+import { Row } from "reactstrap";
 
 const UserContainer = () => {
   const { authenticated } = useContext(authContext);
@@ -33,18 +34,20 @@ const UserContainer = () => {
   return (
     <Fragment>
       <h1>this is user component</h1>
-      {users.map((ele) => {
-        const { id, email, first_name, last_name, avatar } = ele;
-        return (
-          <UserComponent
-            id={id}
-            email={email}
-            first_name={first_name}
-            last_name={last_name}
-            avatar={avatar}
-          />
-        );
-      })}
+      <Row>
+        {users.map((ele) => {
+          const { id, email, first_name, last_name, avatar } = ele;
+          return (
+            <UserComponent
+              id={id}
+              email={email}
+              first_name={first_name}
+              last_name={last_name}
+              avatar={avatar}
+            />
+          );
+        })}
+      </Row>
     </Fragment>
   );
 };
