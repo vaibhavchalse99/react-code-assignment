@@ -1,4 +1,4 @@
-import { useState, useContext, Fragment, useEffect } from "react";
+import { useState, useContext, Fragment } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import * as yup from "yup";
@@ -23,7 +23,6 @@ const SigninContainer = () => {
 
   const [formValues, serFormValues] = useState(initialValue);
   const [error, setError] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const submitForm = () => {
     axios
@@ -50,28 +49,33 @@ const SigninContainer = () => {
     e.preventDefault();
     const err = await validate(FormData);
     console.log(err);
-
     setError(err);
-    setIsSubmitting(true);
+    if (Object.keys(err).length === 0) submitForm();
   };
-
-  useEffect(() => {
-    if (Object.keys(error).length === 0 && isSubmitting) {
-      submitForm();
-    }
-  }, [error]);
 
   const validate = async () => {
     try {
       await schema.validate(formValues, { abortEarly: false });
       return {};
     } catch (err) {
-      let e = {};
+      let errObj = {};
       for (let { path, message } of err.inner) {
-        e[path] = message;
+        errObj[path] = message;
       }
-      return e;
+      return errObj;
     }
+  };
+
+  const handleEmailInput = (e) => {
+    const { email, ...newErrorState } = error;
+    setError(newErrorState);
+    serFormValues({ ...formValues, email: e.target.value });
+  };
+
+  const handlePasswordInput = (e) => {
+    const { password, ...newErrorState } = error;
+    setError(newErrorState);
+    serFormValues({ ...formValues, password: e.target.value });
   };
 
   return (
@@ -84,9 +88,9 @@ const SigninContainer = () => {
             style={{ border: error.email ? "2px solid red" : "" }}
             type="text"
             value={formValues.email}
-            onChange={(e) =>
-              serFormValues({ ...formValues, email: e.target.value })
-            }
+            onChange={(e) => {
+              handleEmailInput(e);
+            }}
             placeholder="example@gmail.com"
           />
           {error.email ? <p className="text-danger">{error.email}</p> : ""}
@@ -97,9 +101,9 @@ const SigninContainer = () => {
             style={{ border: error.password ? "2px solid red" : "" }}
             type="password"
             value={formValues.password}
-            onChange={(e) =>
-              serFormValues({ ...formValues, password: e.target.value })
-            }
+            onChange={(e) => {
+              handlePasswordInput(e);
+            }}
             placeholder="abc@1234"
           />
           {error.password ? (
