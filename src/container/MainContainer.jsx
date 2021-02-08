@@ -3,7 +3,7 @@ import { Nav, NavItem, Button } from "reactstrap";
 import { useHistory } from "react-router-dom";
 
 import MainComponent from "../component/MainComponent";
-import authContext from "./authContext";
+import authContext from "../context/authContext";
 
 function MainContainer() {
   const [authenticated, setAuthenticated] = useState(false);

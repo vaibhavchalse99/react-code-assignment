@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import * as yup from "yup";
 import { Form, FormGroup, Input, Label, Button } from "reactstrap";
 
-import authContext from "./authContext";
+import authContext from "../context/authContext";
 import "../css/form.css";
 
 let schema = yup.object().shape({

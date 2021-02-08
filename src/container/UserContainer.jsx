@@ -2,7 +2,7 @@ import { Fragment, useContext, useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 
-import authContext from "../container/authContext";
+import authContext from "../context/authContext";
 import UserComponent from "../component/UserComponent";
 import { Row } from "reactstrap";
 
