@@ -1,8 +1,8 @@
 import { Switch, Redirect, Route } from "react-router-dom";
 
-import SigninContainer from "../container/signinContainer";
-import UserContainer from "../container/userContainer";
-import HomeComponent from "../component/homeComponent";
+import SigninContainer from "../container/SigninContainer";
+import UserContainer from "../container/UserContainer";
+import HomeComponent from "./HomeComponent";
 
 const mainComponent = () => {
   return (

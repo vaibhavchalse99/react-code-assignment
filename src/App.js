@@ -1,6 +1,6 @@
 import { BrowserRouter } from "react-router-dom";
 
-import Main from "./container/mainContainer";
+import Main from "./container/MainContainer";
 import { Container } from "reactstrap";
 
 function App() {

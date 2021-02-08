@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Nav, NavItem, Button } from "reactstrap";
 import { useHistory } from "react-router-dom";
 
-import MainComponent from "../component/mainComponent";
+import MainComponent from "../component/MainComponent";
 import authContext from "./authContext";
 
 function MainContainer() {
