@@ -2,9 +2,10 @@ import { useState, useContext, Fragment } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import * as yup from "yup";
-import { Form, FormGroup, Input, Label, Button } from "reactstrap";
 
 import authContext from "../context/authContext";
+import SigninComponent from "../component/SigninComponent";
+
 import "../css/form.css";
 
 let schema = yup.object().shape({
@@ -22,7 +23,7 @@ const SigninContainer = () => {
   const { setAuthenticated } = useContext(authContext);
 
   const [formValues, serFormValues] = useState(initialValue);
-  const [error, setError] = useState({});
+  const [formError, setFormError] = useState({});
 
   const submitForm = () => {
     axios
@@ -48,8 +49,7 @@ const SigninContainer = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const err = await validate(FormData);
-    console.log(err);
-    setError(err);
+    setFormError(err);
     if (Object.keys(err).length === 0) submitForm();
   };
 
@@ -67,57 +67,26 @@ const SigninContainer = () => {
   };
 
   const handleEmailInput = (e) => {
-    const { email, ...newErrorState } = error;
-    setError(newErrorState);
+    const { email, ...newFormErrorState } = formError;
+    setFormError(newFormErrorState);
     serFormValues({ ...formValues, email: e.target.value });
   };
 
   const handlePasswordInput = (e) => {
-    const { password, ...newErrorState } = error;
-    setError(newErrorState);
+    const { password, ...newFormErrorState } = formError;
+    setFormError(newFormErrorState);
     serFormValues({ ...formValues, password: e.target.value });
   };
 
   return (
     <Fragment>
-      <Form className="login-form" onSubmit={handleSubmit}>
-        <h1 className="font-weight-bold text-center">Login</h1>
-        <FormGroup className="mt-3">
-          <Label>Email</Label>
-          <Input
-            style={{ border: error.email ? "2px solid red" : "" }}
-            type="text"
-            value={formValues.email}
-            onChange={(e) => {
-              handleEmailInput(e);
-            }}
-            placeholder="example@gmail.com"
-          />
-          {error.email ? <p className="text-danger">{error.email}</p> : ""}
-        </FormGroup>
-        <FormGroup className="mt-3">
-          <Label>Password</Label>
-          <Input
-            style={{ border: error.password ? "2px solid red" : "" }}
-            type="password"
-            value={formValues.password}
-            onChange={(e) => {
-              handlePasswordInput(e);
-            }}
-            placeholder="abc@1234"
-          />
-          {error.password ? (
-            <p className="text-danger">{error.password}</p>
-          ) : (
-            ""
-          )}
-        </FormGroup>
-        <FormGroup className="mt-5">
-          <Button className="btn-block btn-lg btn-dark form-button">
-            Sign in
-          </Button>
-        </FormGroup>
-      </Form>
+      <SigninComponent
+        handleSubmit={handleSubmit}
+        formError={formError}
+        formValues={formValues}
+        handleEmailInput={handleEmailInput}
+        handlePasswordInput={handlePasswordInput}
+      />
     </Fragment>
   );
 };
