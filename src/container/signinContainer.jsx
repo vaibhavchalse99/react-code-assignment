@@ -1,21 +1,33 @@
-import { useState, useContext } from "react";
+import { useState, useContext, Fragment, useEffect } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import * as yup from "yup";
+import { Form, FormGroup, Input, Label, Button } from "reactstrap";
 
 import authContext from "./authContext";
-import { Form, FormGroup, Input, Label, Button, Row } from "reactstrap";
+import "../css/form.css";
+
+let schema = yup.object().shape({
+  email: yup.string().required().email(),
+  password: yup.string().required().min(6),
+});
+
+let initialValue = {
+  email: "",
+  password: "",
+};
 
 const SigninContainer = () => {
   const history = useHistory();
   const { setAuthenticated } = useContext(authContext);
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [formValues, serFormValues] = useState(initialValue);
+  const [error, setError] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const submitForm = () => {
     axios
-      .post("https://reqres.in/api/login", { email: username, password })
+      .post("https://reqres.in/api/login", formValues)
       .then((response) => {
         const {
           data: { token },
@@ -34,42 +46,75 @@ const SigninContainer = () => {
       });
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const err = await validate(FormData);
+    console.log(err);
+
+    setError(err);
+    setIsSubmitting(true);
+  };
+
+  useEffect(() => {
+    if (Object.keys(error).length === 0 && isSubmitting) {
+      submitForm();
+    }
+  }, [error]);
+
+  const validate = async () => {
+    try {
+      await schema.validate(formValues, { abortEarly: false });
+      return {};
+    } catch (err) {
+      let e = {};
+      for (let { path, message } of err.inner) {
+        e[path] = message;
+      }
+      return e;
+    }
+  };
+
   return (
-    <div>
-      <Row className={"justify-content-center"}>
-        <h2>Login Page</h2>
-      </Row>
-      <Row className={"d-flex justify-content-center"}>
-        <div
-          style={{
-            position: "relative",
-            width: "50%",
-          }}
-        >
-          <Form onSubmit={handleSubmit}>
-            <FormGroup>
-              <Label>Email</Label>
-              <Input
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label>Password</Label>
-              <Input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </FormGroup>
-            <div className="text-center">
-              <Button color="primary">Submit</Button>
-            </div>
-          </Form>
-        </div>
-      </Row>
-    </div>
+    <Fragment>
+      <Form className="login-form" onSubmit={handleSubmit}>
+        <h1 className="font-weight-bold text-center">Login</h1>
+        <FormGroup className="mt-3">
+          <Label>Email</Label>
+          <Input
+            style={{ border: error.email ? "2px solid red" : "" }}
+            type="text"
+            value={formValues.email}
+            onChange={(e) =>
+              serFormValues({ ...formValues, email: e.target.value })
+            }
+            placeholder="example@gmail.com"
+          />
+          {error.email ? <p className="text-danger">{error.email}</p> : ""}
+        </FormGroup>
+        <FormGroup className="mt-3">
+          <Label>Password</Label>
+          <Input
+            style={{ border: error.password ? "2px solid red" : "" }}
+            type="password"
+            value={formValues.password}
+            onChange={(e) =>
+              serFormValues({ ...formValues, password: e.target.value })
+            }
+            placeholder="abc@1234"
+          />
+          {error.password ? (
+            <p className="text-danger">{error.password}</p>
+          ) : (
+            ""
+          )}
+        </FormGroup>
+        <FormGroup className="mt-5">
+          <Button className="btn-block btn-lg btn-dark form-button">
+            Sign in
+          </Button>
+        </FormGroup>
+      </Form>
+    </Fragment>
   );
 };
 

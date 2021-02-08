@@ -1,14 +1,15 @@
 import { BrowserRouter } from "react-router-dom";
 
 import Main from "./container/mainContainer";
+import { Container } from "reactstrap";
 
 function App() {
   return (
-    <div>
+    <Container>
       <BrowserRouter>
         <Main />
       </BrowserRouter>
-    </div>
+    </Container>
   );
 }
 

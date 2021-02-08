@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, Nav, NavItem, NavLink, Button } from "reactstrap";
+import { Nav, NavItem, Button } from "reactstrap";
 import { useHistory } from "react-router-dom";
 
 import MainComponent from "../component/mainComponent";
@@ -23,14 +23,12 @@ function MainContainer() {
     }
   };
   return (
-    <Container className="themed-container">
-      <authContext.Provider value={{ authenticated, setAuthenticated }}>
-        <Nav className="mt-5">
-          <NavItem className="h3">{renderLoginButton()}</NavItem>
-        </Nav>
-        <MainComponent />
-      </authContext.Provider>
-    </Container>
+    <authContext.Provider value={{ authenticated, setAuthenticated }}>
+      <Nav className="mt-5">
+        <NavItem className="h3">{renderLoginButton()}</NavItem>
+      </Nav>
+      <MainComponent />
+    </authContext.Provider>
   );
 }
 

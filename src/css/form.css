@@ -1,6 +1,10 @@
-.formOuterLayout {
+.login-form {
+  border: 10px solid #48abe0;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 500px;
+  padding: 25px;
   margin: auto;
-  width: fit-content;
-  height: fit-content;
-  background: red;
+  margin-top: 10%;
+  height: 100%;
 }
