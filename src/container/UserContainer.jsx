@@ -1,10 +1,10 @@
 import { Fragment, useContext, useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
+import { Row } from "reactstrap";
 
 import authContext from "../context/authContext";
 import UserComponent from "../component/UserComponent";
-import { Row } from "reactstrap";
 
 const UserContainer = () => {
   const { authenticated } = useContext(authContext);
