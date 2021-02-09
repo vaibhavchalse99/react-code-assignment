@@ -1,11 +1,6 @@
-import {
-  Form,
-  FormGroup,
-  Input,
-  Label,
-  Button,
-  FormFeedback,
-} from "reactstrap";
+import { Form, FormGroup, Label, Button, FormFeedback } from "reactstrap";
+
+import InputComponent from "./InputComponent";
 
 import "../css/form.css";
 
@@ -22,27 +17,21 @@ const SigninComponent = (props) => {
       <h1 className="font-weight-bold text-center">Login</h1>
       <FormGroup className="mt-3">
         <Label>Email</Label>
-        <Input
+        <InputComponent
           type="text"
           value={loginState.email}
-          onChange={(e) => {
-            handleEmailInput(e);
-          }}
-          placeholder="example@gmail.com"
-          invalid={loginState.emailError !== ""}
+          handleInput={handleEmailInput}
+          error={loginState.emailError}
         />
         <FormFeedback>{loginState.emailError}</FormFeedback>
       </FormGroup>
       <FormGroup className="mt-3">
         <Label>Password</Label>
-        <Input
+        <InputComponent
           type="password"
           value={loginState.password}
-          onChange={(e) => {
-            handlePasswordInput(e);
-          }}
-          placeholder="abc@1234"
-          invalid={loginState.passwordError !== ""}
+          handleInput={handlePasswordInput}
+          error={loginState.passwordError}
         />
         <FormFeedback>{loginState.passwordError}</FormFeedback>
       </FormGroup>
