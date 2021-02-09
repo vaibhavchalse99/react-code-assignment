@@ -5,6 +5,12 @@ import { useHistory } from "react-router-dom";
 import authContext from "../context/authContext";
 import SigninComponent from "../component/SigninComponent";
 import { loginReducer, initialValue, schema } from "../reducer/loginReducer";
+import {
+  UPDATE_EMAIL,
+  UPDATE_EMAIL_ERROR,
+  UPDATE_PASSWORD,
+  UPDATE_PASSWORD_ERROR,
+} from "../helpers/stringHelper";
 
 import "../css/form.css";
 
@@ -46,13 +52,13 @@ const SigninContainer = () => {
     } else {
       if (err.email) {
         dispatch({
-          type: "updateEmailError",
+          type: UPDATE_EMAIL_ERROR,
           payload: { emailError: err.email },
         });
       }
       if (err.password) {
         dispatch({
-          type: "updatePasswordError",
+          type: UPDATE_PASSWORD_ERROR,
           payload: { passwordError: err.password },
         });
       }
@@ -73,11 +79,11 @@ const SigninContainer = () => {
   };
 
   const handleEmailInput = (e) => {
-    dispatch({ type: "updateEmail", payload: { email: e.target.value } });
+    dispatch({ type: UPDATE_EMAIL, payload: { email: e.target.value } });
   };
 
   const handlePasswordInput = (e) => {
-    dispatch({ type: "updatePassword", payload: { password: e.target.value } });
+    dispatch({ type: UPDATE_PASSWORD, payload: { password: e.target.value } });
   };
 
   return (
