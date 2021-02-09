@@ -1,45 +1,16 @@
 import { useContext, Fragment, useReducer } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import * as yup from "yup";
 
 import authContext from "../context/authContext";
 import SigninComponent from "../component/SigninComponent";
+import { loginReducer, initialValue, schema } from "../reducer/loginReducer";
 
 import "../css/form.css";
-
-let schema = yup.object().shape({
-  email: yup.string().required().email(),
-  password: yup.string().required().min(6),
-});
-
-let initialValue = {
-  email: "",
-  password: "",
-  emailError: "",
-  passwordError: "",
-};
-
-const loginReducer = (state, action) => {
-  const { type, payload } = action;
-  switch (type) {
-    case "updateEmail":
-      return { ...state, email: payload.email, emailError: "" };
-    case "updatePassword":
-      return { ...state, password: payload.password, passwordError: "" };
-    case "updateEmailError":
-      return { ...state, emailError: payload.emailError };
-    case "updatePasswordError":
-      return { ...state, passwordError: payload.passwordError };
-    default:
-      return state;
-  }
-};
 
 const SigninContainer = () => {
   const history = useHistory();
   const { setAuthenticated } = useContext(authContext);
-
   const [loginState, dispatch] = useReducer(loginReducer, initialValue);
 
   const submitForm = () => {
