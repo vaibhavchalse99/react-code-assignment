@@ -1,7 +1,9 @@
+import React from "react";
 import { Input } from "reactstrap";
 
 const InputComponent = (props) => {
   const { value, handleInput, error, type } = props;
+  console.log(`input component - ${type}`);
 
   return (
     <Input
@@ -16,4 +18,4 @@ const InputComponent = (props) => {
   );
 };
 
-export default InputComponent;
+export default React.memo(InputComponent);

@@ -1,4 +1,4 @@
-import { useContext, Fragment, useReducer } from "react";
+import { useContext, Fragment, useReducer, useCallback } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
@@ -78,13 +78,32 @@ const SigninContainer = () => {
     }
   };
 
-  const handleEmailInput = (e) => {
-    dispatch({ type: UPDATE_EMAIL, payload: { email: e.target.value } });
-  };
+  // const handleEmailInput = (e) => {
+  //   console.log("handleEmailInput");
+  //   dispatch({ type: UPDATE_EMAIL, payload: { email: e.target.value } });
+  // };
 
-  const handlePasswordInput = (e) => {
-    dispatch({ type: UPDATE_PASSWORD, payload: { password: e.target.value } });
-  };
+  const handleEmailInput = useCallback(
+    (e) => {
+      dispatch({ type: UPDATE_EMAIL, payload: { email: e.target.value } });
+    },
+    [loginState.email]
+  );
+
+  const handlePasswordInput = useCallback(
+    (e) => {
+      dispatch({
+        type: UPDATE_PASSWORD,
+        payload: { password: e.target.value },
+      });
+    },
+    [loginState.password]
+  );
+
+  // const handlePasswordInput = (e) => {
+  //   console.log("handlePasswordInput");
+  //   dispatch({ type: UPDATE_PASSWORD, payload: { password: e.target.value } });
+  // };
 
   return (
     <Fragment>

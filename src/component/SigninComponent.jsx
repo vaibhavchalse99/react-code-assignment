@@ -1,3 +1,4 @@
+import React from "react";
 import { Form, FormGroup, Label, Button, FormFeedback } from "reactstrap";
 
 import InputComponent from "./InputComponent";
@@ -5,6 +6,7 @@ import InputComponent from "./InputComponent";
 import "../css/form.css";
 
 const SigninComponent = (props) => {
+  console.log("Sign in component");
   const {
     loginState,
     handleSubmit,
@@ -44,4 +46,4 @@ const SigninComponent = (props) => {
   );
 };
 
-export default SigninComponent;
+export default React.memo(SigninComponent);
