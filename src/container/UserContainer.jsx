@@ -1,13 +1,10 @@
-import { Fragment, useContext, useEffect, useState } from "react";
-import { Redirect } from "react-router-dom";
+import { Fragment, useEffect, useState } from "react";
 import axios from "axios";
 import { Row } from "reactstrap";
 
-import authContext from "../context/authContext";
 import UserComponent from "../component/UserComponent";
 
 const UserContainer = () => {
-  const { authenticated } = useContext(authContext);
   const [users, setUser] = useState([]);
   useEffect(() => {
     axios
@@ -26,10 +23,6 @@ const UserContainer = () => {
         alert(err.message);
       });
   }, []);
-
-  if (!authenticated) {
-    return <Redirect to="/account/signin" />;
-  }
 
   return (
     <Fragment>
