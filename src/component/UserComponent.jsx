@@ -1,4 +1,5 @@
 import { Fragment } from "react";
+import { Link } from "react-router-dom";
 import {
   Card,
   CardBody,
@@ -13,21 +14,23 @@ const UserComponent = (props) => {
   return (
     <Fragment>
       <Col xs="3" className="mt-3">
-        <Card key={id}>
-          <CardImg
-            top
-            width="150px"
-            height="200px"
-            src={avatar}
-            alt="Card image cap"
-          />
-          <CardBody>
-            <CardTitle tag="h5">{first_name + last_name}</CardTitle>
-            <CardSubtitle tag="h6" className="mb-2 text-muted">
-              {email}
-            </CardSubtitle>
-          </CardBody>
-        </Card>
+        <Link to={`/users/${id}`}>
+          <Card key={id}>
+            <CardImg
+              top
+              width="150px"
+              height="200px"
+              src={avatar}
+              alt="Card image cap"
+            />
+            <CardBody>
+              <CardTitle tag="h5">{first_name + last_name}</CardTitle>
+              <CardSubtitle tag="h6" className="mb-2 text-muted">
+                {email}
+              </CardSubtitle>
+            </CardBody>
+          </Card>
+        </Link>
       </Col>
     </Fragment>
   );
