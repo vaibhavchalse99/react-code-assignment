@@ -39,6 +39,7 @@ const UserContainer = () => {
           const { id, email, first_name, last_name, avatar } = ele;
           return (
             <UserComponent
+              key={id}
               id={id}
               email={email}
               first_name={first_name}

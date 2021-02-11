@@ -7,6 +7,7 @@ const InputComponent = (props) => {
 
   return (
     <Input
+      key={type}
       type={type}
       value={value}
       onChange={(e) => {

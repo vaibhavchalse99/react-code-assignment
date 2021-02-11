@@ -14,6 +14,8 @@ const SigninComponent = (props) => {
     handlePasswordInput,
   } = props;
 
+  const { email, emailError, password, passwordError } = loginState;
+
   return (
     <Form className="login-form" onSubmit={handleSubmit}>
       <h1 className="font-weight-bold text-center">Login</h1>
@@ -21,21 +23,21 @@ const SigninComponent = (props) => {
         <Label>Email</Label>
         <InputComponent
           type="text"
-          value={loginState.email}
+          value={email}
           handleInput={handleEmailInput}
-          error={loginState.emailError}
+          error={emailError}
         />
-        <FormFeedback>{loginState.emailError}</FormFeedback>
+        <FormFeedback>{emailError}</FormFeedback>
       </FormGroup>
       <FormGroup className="mt-3">
         <Label>Password</Label>
         <InputComponent
           type="password"
-          value={loginState.password}
+          value={password}
           handleInput={handlePasswordInput}
-          error={loginState.passwordError}
+          error={passwordError}
         />
-        <FormFeedback>{loginState.passwordError}</FormFeedback>
+        <FormFeedback>{passwordError}</FormFeedback>
       </FormGroup>
       <FormGroup className="mt-5">
         <Button className="btn-block btn-lg btn-dark form-button">
